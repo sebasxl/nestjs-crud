@@ -9,6 +9,9 @@ import { User } from './schemas/user.schema';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
+  async findByEmail(email: string): Promise<User | undefined> {
+    return this.userModel.findOne({ email }).exec();
+  }
   // Crear un usuario
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new this.userModel(createUserDto);
